@@ -1,0 +1,39 @@
+{
+  "name": "jailbreak_automated",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cy": "cypress run --headless",
+    "cy:ci": "cypress run --headless"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egramatikovska2/jailbreak_automated.git"
+  },
+  "keywords": [],
+  "author": "Elena Gramatikovska",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egramatikovska2/jailbreak_automated/issues"
+  },
+  "homepage": "https://github.com/egramatikovska2/jailbreak_automated#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.8.0",
+    "cypress": "^13.11.0"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-class-properties": "^7.24.7",
+    "@babel/plugin-transform-object-rest-spread": "^7.24.7",
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.6",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "dotenv": "^16.4.5"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/e2e/jailbreak_automated/step-definitions/*.js"
+    ],
+    "filterSpecs": true,
+    "omitFiltered": true
+  }
+}
