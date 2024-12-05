@@ -4,7 +4,7 @@
 if (process.env.CI !== 'true')
   require('dotenv').config();
 
-const { defineConfig } = require("cypress");
+const { defineConfig } = require("Cypress");
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
 const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify");
 
@@ -30,10 +30,13 @@ module.exports = defineConfig({
     DOMAIN: process.env.CYPRESS_DOMAIN,
     JAILBREAK_EMAIL_BUYER: process.env.CYPRESS_JAILBREAK_EMAIL_BUYER,
     JAILBREAK_PASS_BUYER: process.env.CYPRESS_JAILBREAK_PASS_BUYER,
+    JAILBREAK_EMAIL_SUPPLIER: process.env.CYPRESS_JAILBREAK_EMAIL_SUPPLIER,
+    JAILBREAK_PASS_SUPPLIER: process.env.CYPRESS_JAILBREAK_PASS_SUPPLIER,
     JAILBREAK_WEBHOST: process.env.CYPRESS_JAILBREAK_WEBHOST,
     JAILBREAK_APIHOST: process.env.CYPRESS_JAILBREAK_APIHOST,
     JAILBREAK_API_USERNAME: process.env.CYPRESS_JAILBREAK_API_USERNAME,
-    JAILBREAK_API_PASS: process.env.CYPRESS_JAILBREAK_API_PASS
+    JAILBREAK_API_PASS: process.env.CYPRESS_JAILBREAK_API_PASS,
+    
   }
 });
 
