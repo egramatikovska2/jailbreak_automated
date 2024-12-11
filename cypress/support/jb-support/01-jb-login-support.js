@@ -2,9 +2,6 @@
 function check_input(element){
     cy.get(element).should('exist')
 }
-function fill_input(element, value) {
-    cy.get(element).type(value);    
-}
 function assert_main_page(){
     check_fields_with_placeholder('Los Angeles, CA');
     check_fields_with_placeholder('Dallas, TX');
@@ -30,7 +27,6 @@ function check_stats(index, element, id, p, value){
     cy.get('[data-with-border="true"]').eq(index).find(element).eq(id).find(p).should('contain', value)
 }
 module.exports = {
-    fill_input,
     check_input,
     check_error_message,
     assert_main_page,
