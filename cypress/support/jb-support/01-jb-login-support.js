@@ -1,13 +1,7 @@
 
+
 function check_input(element){
     cy.get(element).should('exist')
-}
-function assert_main_page(){
-    check_fields_with_placeholder('Los Angeles, CA');
-    check_fields_with_placeholder('Dallas, TX');
-    cy.get('button[data-dates-input="true"]> span').contains('Start - End Date').should('exist')
-    check_fields_with_placeholder('Number of pallets (CBs)');
-    cy.get('button[type="button"]').find('span > span > p').contains('Search').should('exist')  
 }
 function assert_map_view(){
     cy.get('button[type="button"]').eq(4).should('have.attr','data-variant','filled')
@@ -29,7 +23,6 @@ function check_stats(index, element, id, p, value){
 module.exports = {
     check_input,
     check_error_message,
-    assert_main_page,
     assert_map_view,
     assert_list_view,
     check_header,
