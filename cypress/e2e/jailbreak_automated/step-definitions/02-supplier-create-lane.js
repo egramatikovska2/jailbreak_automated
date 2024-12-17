@@ -76,7 +76,7 @@ Then('the calendar should be displayed',()=>{
 Then('I should choose the start date',()=>{
      cy.get('[data-today="true"]').should('exist').click()
 })
-When('I choose the end date',()=>{
+Then('I choose the end date',()=>{
      cy.get('button[data-direction="next"]').click()
      cy.get('.mantine-DatePickerInput-monthRow').eq(2).find('td > button').eq(5).click()
 })
@@ -102,18 +102,18 @@ Then('I should set the trip finish time',()=>{
 
 //SETTING THE TRIP DROP OFF START AND END WINDOW
 Then('I should set the trip drop off start window',()=>{
-     create_lane_support.fill_input('input[name="dropOffStartTime"]','exist','01:00');
+     create_lane_support.fill_input('input[name="dropOffStartTime"]','exist','09:00');
 })
 Then('I should set the trip drop off end window',()=>{
-     create_lane_support.fill_input('input[name="dropOffEndTime"]','exist','00:45');
+     create_lane_support.fill_input('input[name="dropOffEndTime"]','exist','09:45');
 })
 
 //SETTING THE TRIP PICK UP START AND END WINDOW
 Then('I should set the trip pick up start window',()=>{
-     create_lane_support.fill_input('input[name="pickUpStartTime"]','exist','01:00');
+     create_lane_support.fill_input('input[name="pickUpStartTime"]','exist','15:15');
 })
 Then('I should set the trip pick up end window',()=>{
-     create_lane_support.fill_input('input[name="pickUpEndTime"]','exist','01:00');
+     create_lane_support.fill_input('input[name="pickUpEndTime"]','exist','16:00');
 })
 
 //SETTING THE CAPACITY AND PRICING
@@ -134,66 +134,11 @@ Then('I should set the free cancelation period',()=>{
 })
 
 //CREATING A LANE WITH ALL INFORMATION PROVIDED
-Then('I should provide all the information for the lane',()=>{
-     create_lane_support.click_btn('button[type="button"]','span > span', 'Create New Gateway')
-     
-     //origin gateway
-     create_lane_support.fill_input('input[name="address"]','exist','1523 Stellar Dr');
-     create_lane_support.fill_input('input[name="city"]','exist','Kenai');
-     create_lane_support.fill_input('input[name="state"]','exist','Alaska');
-     create_lane_support.fill_input('input[name="zip"]','exist','99611');
-     create_lane_support.check_btn_text('button[type="button"]','span > span', 'Cancel','exist');
-     create_lane_support.check_btn_text('button[type="submit"]','span > span','Save','exist');
-     cy.get('button[type="submit"] > span > span').first().click()
-     cy.get('[role="alert"]').should('have.length', 1)
-     cy.get('label').contains('Gateway 1 (Origin)').should('exist')
-     cy.get('input[value="1523 Stellar Dr Kenai"]').should('exist')
-     create_lane_support.click_btn('button[type="button"]','span > span', 'Create New Gateway')
-     
-     //destination gateway
-     create_lane_support.fill_input('input[name="address"]','exist','373 Downing St');
-     create_lane_support.fill_input('input[name="city"]','exist','Lawrenceville');
-     create_lane_support.fill_input('input[name="state"]','exist','Georgia');
-     create_lane_support.fill_input('input[name="zip"]','exist','30045');
-     cy.get('button[type="submit"] > span > span').first().click()
-     cy.get('[role="alert"]').should('have.length', 1)
-     cy.get('label').contains('Gateway 2 (Destination)').should('exist')
-     cy.get('input[value="373 Downing St Lawrenceville"]').should('exist')
-     create_lane_support.check_btn_text('button[type="button"]','span > span', 'Create New Gateway','not.exist')
-
-     //date range
-     create_lane_support.check_btn_text('button[type="button"]','span','Select dates','exist');
-     create_lane_support.click_btn('button[type="button"]','span','Select dates')
-     cy.get('[data-today="true"]').should('exist').click()
-     cy.get('button[data-direction="next"]').click()
-     cy.get('.mantine-DatePickerInput-monthRow').eq(2).find('td > button').eq(5).click()
-     cy.get('[data-calendar="true"]').should('not.exist')
-
-     //service days
-     create_lane_support.click_btn('label','span','M');
-     create_lane_support.click_btn('label','span','W');
-     create_lane_support.click_btn('label','span','F');
-     cy.get('[data-checked="true"]').should('have.length',3)
-
-     //trip start and end date
-     create_lane_support.fill_input('input[name="tripStartTime"]','exist','10:00');
-     create_lane_support.fill_input('input[name="tripEndTime"]','exist','15:00');
-
-     //drop off window
-     create_lane_support.fill_input('input[name="dropOffStartTime"]','exist','01:00');
-     create_lane_support.fill_input('input[name="dropOffEndTime"]','exist','00:45');
-
-     //pick up window
-     create_lane_support.fill_input('input[name="pickUpStartTime"]','exist','01:00');
-     create_lane_support.fill_input('input[name="pickUpEndTime"]','exist','01:00');
-
-     //capacity and pricing
-     create_lane_support.fill_input('input[name="cbPerDay"]','exist','10');
-     create_lane_support.fill_input('input[name="pricePerCB"]','exist','30');
-     create_lane_support.fill_input('input[name="pricePerCPSpot"]','exist','35');
-     create_lane_support.fill_input('input[name="reservationFee"]','exist','10');
-     create_lane_support.fill_input('input[name="cancellationPeriod"]','exist','2');
-
+Then('I should choose an origin gateway',()=>{
+     create_lane_support.origin_gateway();      
+})
+Then('I should choose a destination gateway',()=>{
+     create_lane_support.destination_gateway();
 })
 When('I save the lane',()=>{
     create_lane_support.click_btn('button[type="submit"]','span > span', 'Submit') 
@@ -202,6 +147,7 @@ Then('I should close the side window',()=>{
      cy.get('body').should('have.attr','data-scroll-locked','1')
      jb_supportFile.check_header('h2','Your new lane has been successfully created.');
      cy.get('header > button').should('exist').click()
-
-
+})
+Then('I should assert the new lane has been created',()=>{
+     create_lane_support.assert_lane();
 })
