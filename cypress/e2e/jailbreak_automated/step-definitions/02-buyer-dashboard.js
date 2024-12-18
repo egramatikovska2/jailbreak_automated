@@ -28,14 +28,12 @@ Then("I should be redirected on the lane's details page",()=>{
     login_support.check_header('h1','Lawrenceville, GA → Kenai, AK');
 })
 Then("I should assert the lane's details page",()=>{
-    //lane_support.check_btn_text('a[href="/lanes"]','','← Back','exist');
+    dashboard_support.assert_lanes_details();
     lane_support.check_btn_text('button[data-dates-input="true"]','span','Start - End Date','exist');
     login_support.check_input('input[placeholder="No. of CBs"]');
     lane_support.check_btn_text('button[type="button"]','span > span > p','Search','exist');
     lane_support.check_btn_text('button[type="button"]','span > span:nth-child(2)','Calendar View','exist');
-    //check which button is selected - CALENDAR or LIST
-    //lane_support.role_dialog('[role="alert"]',0,'','exist');
-
+    lane_support.check_btn_text('button[type="button"]','span > span:nth-child(2)','List View','exist');   
 })
 
 //BUYER - LIST VIEW
@@ -52,5 +50,10 @@ Then('I should be switched to list view of the lanes',()=>{
     lane_support.assert_td('table > thead',0,0,'th','Supplier','exist');
     lane_support.assert_td('table > thead',0,0,'th','Service days','exist');
     cy.get('tbody').first().find('tr').should('have.length.at.least',1)
+})
+
+//BUYER - OPENING LANE FROM LIST VIEW
+When('I open one of the lanes',()=>{
+    dashboard_support.open_lane(1,2,'Lawrenceville, GA','Kenai, AK')
 })
 

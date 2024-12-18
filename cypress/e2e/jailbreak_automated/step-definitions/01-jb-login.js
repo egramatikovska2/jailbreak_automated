@@ -10,7 +10,7 @@ const jb_credentials = {
 }
 
 //JAILBREAK BUYER - SUCCESSFUL LOGIN - CORRECT EMAIL AND PASSWORD
-When('I open the Jailbreak app',()=>{
+Given('I open the Jailbreak app',()=>{
     cy.viewport(1920, 1080)
     cy.visit(Cypress.env('JAILBREAK_WEBHOST'))
 })
@@ -20,10 +20,10 @@ Then('I should be redirected on the login page for Jailbreak',()=>{
     cy.get('button[type="submit"]').should('exist').should('be.enabled').find('span > span').should('contain','Log In')
 })
 Then('I enter the correct BUYER email for Jailbreak',()=>{
-    create_lane_support.fill_input('input[placeholder="name@company.com"]','exist', jb_credentials.jailbreak_buyer_email);
+    create_lane_support.fill_input('input[placeholder="name@company.com"]',0,'exist', jb_credentials.jailbreak_buyer_email);
 })
 Then('I enter the correct BUYER password for Jailbreak',()=>{
-    create_lane_support.fill_input('input[placeholder="Enter Your Password"]','exist', jb_credentials.jailbreak_buyer_pass);
+    create_lane_support.fill_input('input[placeholder="Enter Your Password"]',0,'exist', jb_credentials.jailbreak_buyer_pass);
 })
 When('I click on the login button for Jailbreak',()=>{
     cy.get('button[type="submit"]').find('span > span').should('contain','Log In').click()
@@ -41,7 +41,7 @@ Then('I should be redirected on the map with available transportation lanes',()=
 
 //JAILBREAK BUYER - UNSUCCESSFUL LOGIN - INCORRECT EMAIL
 Then('I enter the incorrect BUYER email for Jailbreak',()=>{
-    create_lane_support.fill_input('input[placeholder="name@company.com"]','exist','incorrect_email@cloudsort.com')
+    create_lane_support.fill_input('input[placeholder="name@company.com"]',0,'exist','incorrect_email@cloudsort.com')
 })
 Then('there should be an error message for incorrect email or password',()=>{
     jb_supportFile.check_error_message('div > div > div','Incorrect email or password','exist');
@@ -53,7 +53,7 @@ Then('I should not be redirected on the map with available transportation lanes'
 
 //JAILBREAK BUYER - UNSUCCESSFUL LOGIN - INCORRECT PASSWORD
 Then('I enter the incorrect BUYER password for Jailbreak',()=>{
-    create_lane_support.fill_input('input[placeholder="Enter Your Password"]','exist','incorrect_password');
+    create_lane_support.fill_input('input[placeholder="Enter Your Password"]',0,'exist','incorrect_password');
     cy.get('input[placeholder="Enter Your Password"]').invoke('attr', 'type', 'text');
     cy.url().should('not.contain','lanes').should('contain','login')
 })
@@ -61,10 +61,10 @@ Then('I enter the incorrect BUYER password for Jailbreak',()=>{
 
 //JAILBREAK SUPPLIER - SUCCESSFUL LOGIN - CORRECT EMAIL AND PASSWORD
 Then('I enter the correct SUPPLIER email for Jailbreak',()=>{
-    create_lane_support.fill_input('input[placeholder="name@company.com"]', 'exist',jb_credentials.jailbreak_supplier_email);
+    create_lane_support.fill_input('input[placeholder="name@company.com"]', 0,'exist',jb_credentials.jailbreak_supplier_email);
 })
 Then('I enter the correct SUPPLIER password for Jailbreak',()=>{
-    create_lane_support.fill_input('input[placeholder="Enter Your Password"]', 'exist',jb_credentials.jailbreak_supplier_pass);
+    create_lane_support.fill_input('input[placeholder="Enter Your Password"]',0,'exist',jb_credentials.jailbreak_supplier_pass);
 })
 Then('I should be redirected on the list with my transportation lanes',()=>{
     cy.url().should('contain',Cypress.env('JAILBREAK_WEBHOST')+ 'supplier/lanes')
@@ -78,7 +78,7 @@ Then('I should be redirected on the list with my transportation lanes',()=>{
 
 //JAILBREAK SUPPLIER - UNSUCCESSFUL LOGIN - INCORRECT EMAIL
 Then('I enter the incorrect SUPPLIER email for Jailbreak',()=>{
-    create_lane_support.fill_input('input[placeholder="name@company.com"]','exist','incorrect_email@cloudsort.com')
+    create_lane_support.fill_input('input[placeholder="name@company.com"]',0,'exist','incorrect_email@cloudsort.com')
 })
 Then('I should not be redirected on the list with my transportation lanes',()=>{
     cy.url().should('not.contain','supplier/lanes').should('contain','login')
@@ -86,23 +86,23 @@ Then('I should not be redirected on the list with my transportation lanes',()=>{
 
 //JAILBREAK SUPPLIER - UNSUCCESSFULL LOGIN - INCORRECT PASSWORD
 Then('I enter the incorrect SUPPLIER password for Jailbreak',()=>{
-    create_lane_support.fill_input('Enter Your Password','exist','incorrect_password');
+    create_lane_support.fill_input('Enter Your Password',0,'exist','incorrect_password');
     cy.get('input[placeholder="Enter Your Password"]').invoke('attr', 'type', 'text');
     cy.url().should('not.contain','supplier/lanes').should('contain','login')
 })
 
 //LOG IN AS BUYER
 Then('I should log in as Buyer',()=>{
-    create_lane_support.fill_input('input[placeholder="name@company.com"]','exist', jb_credentials.jailbreak_buyer_email);
-    create_lane_support.fill_input('input[placeholder="Enter Your Password"]','exist', jb_credentials.jailbreak_buyer_pass);
+    create_lane_support.fill_input('input[placeholder="name@company.com"]',0,'exist', jb_credentials.jailbreak_buyer_email);
+    create_lane_support.fill_input('input[placeholder="Enter Your Password"]',0,'exist', jb_credentials.jailbreak_buyer_pass);
     cy.get('button[type="submit"]').find('span > span').should('contain','Log In').click()
     cy.url().should('contain',Cypress.env('JAILBREAK_WEBHOST')+ 'lanes')
 })
 
 //LOG IN AS SUPPLIER
 Then('I should log in as Supplier',()=>{
-    create_lane_support.fill_input('input[placeholder="name@company.com"]','exist', jb_credentials.jailbreak_supplier_email);
-    create_lane_support.fill_input('input[placeholder="Enter Your Password"]','exist', jb_credentials.jailbreak_supplier_pass);
+    create_lane_support.fill_input('input[placeholder="name@company.com"]',0,'exist', jb_credentials.jailbreak_supplier_email);
+    create_lane_support.fill_input('input[placeholder="Enter Your Password"]',0,'exist', jb_credentials.jailbreak_supplier_pass);
     cy.get('button[type="submit"]').find('span > span').should('contain','Log In').click()
     cy.url().should('contain',Cypress.env('JAILBREAK_WEBHOST')+ 'supplier/lanes')
 })

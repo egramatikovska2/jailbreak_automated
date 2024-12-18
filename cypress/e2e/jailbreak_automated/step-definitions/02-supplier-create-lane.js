@@ -30,10 +30,10 @@ Then('a form for creating new Gateway should open',()=>{
      jb_supportFile.check_input('input[name="zip"]');
 })
 When('I enter the details for the origin Gateway',()=>{
-     create_lane_support.fill_input('input[name="address"]','exist','1523 Stellar Dr');
-     create_lane_support.fill_input('input[name="city"]','exist','Kenai');
-     create_lane_support.fill_input('input[name="state"]','exist','Alaska');
-     create_lane_support.fill_input('input[name="zip"]','exist','99611');
+     create_lane_support.fill_input('input[name="address"]',0,'exist','1523 Stellar Dr');
+     create_lane_support.fill_input('input[name="city"]',0,'exist','Kenai');
+     create_lane_support.fill_input('input[name="state"]',0,'exist','Alaska');
+     create_lane_support.fill_input('input[name="zip"]',0,'exist','99611');
      create_lane_support.check_btn_text('button[type="button"]','span > span', 'Cancel','exist');
      create_lane_support.check_btn_text('button[type="submit"]','span > span','Save','exist');
 })
@@ -49,10 +49,10 @@ Then('I should click on the button for creating a new Gateway',()=>{
      create_lane_support.click_btn('button[type="button"]','span > span', 'Create New Gateway')  
 })
 Then('I enter the details for the destination Gateway',()=>{
-     create_lane_support.fill_input('input[name="address"]','exist','373 Downing St');
-     create_lane_support.fill_input('input[name="city"]','exist','Lawrenceville');
-     create_lane_support.fill_input('input[name="state"]','exist','Georgia');
-     create_lane_support.fill_input('input[name="zip"]','exist','30045');
+     create_lane_support.fill_input('input[name="address"]',0,'exist','373 Downing St');
+     create_lane_support.fill_input('input[name="city"]',0,'exist','Lawrenceville');
+     create_lane_support.fill_input('input[name="state"]',0,'exist','Georgia');
+     create_lane_support.fill_input('input[name="zip"]',0,'exist','30045');
 })
 When('I save the destination Gateway',()=>{
      cy.get('button[type="submit"] > span > span').first().click()
@@ -94,43 +94,43 @@ Then('I should select Monday, Wednesday and Friday as service days',()=>{
 
 //SETTING THE TRIP START AND FINISH TIME
 Then('I should set the trip start time',()=>{
-     create_lane_support.fill_input('input[name="tripStartTime"]','exist','10:00');
+     create_lane_support.fill_input('input[name="tripStartTime"]',0,'exist','10:00');
 })
 Then('I should set the trip finish time',()=>{
-     create_lane_support.fill_input('input[name="tripEndTime"]','exist','15:00');
+     create_lane_support.fill_input('input[name="tripEndTime"]',0,'exist','15:00');
 })
 
 //SETTING THE TRIP DROP OFF START AND END WINDOW
 Then('I should set the trip drop off start window',()=>{
-     create_lane_support.fill_input('input[name="dropOffStartTime"]','exist','09:00');
+     create_lane_support.fill_input('input[name="dropOffStartTime"]',0,'exist','09:00');
 })
 Then('I should set the trip drop off end window',()=>{
-     create_lane_support.fill_input('input[name="dropOffEndTime"]','exist','09:45');
+     create_lane_support.fill_input('input[name="dropOffEndTime"]',0,'exist','09:45');
 })
 
 //SETTING THE TRIP PICK UP START AND END WINDOW
 Then('I should set the trip pick up start window',()=>{
-     create_lane_support.fill_input('input[name="pickUpStartTime"]','exist','15:15');
+     create_lane_support.fill_input('input[name="pickUpStartTime"]',0,'exist','15:15');
 })
 Then('I should set the trip pick up end window',()=>{
-     create_lane_support.fill_input('input[name="pickUpEndTime"]','exist','16:00');
+     create_lane_support.fill_input('input[name="pickUpEndTime"]',0,'exist','16:00');
 })
 
 //SETTING THE CAPACITY AND PRICING
 Then('I should set the CBs per day',()=>{
-     create_lane_support.fill_input('input[name="cbPerDay"]','exist','10');
+     create_lane_support.fill_input('input[name="cbPerDay"]',0,'exist','10');
 })
 Then('I should set the price per CB',()=>{
-     create_lane_support.fill_input('input[name="pricePerCB"]','exist','30');
+     create_lane_support.fill_input('input[name="pricePerCB"]',0,'exist','30');
 })
 Then('I should set the spot rate price',()=>{
-     create_lane_support.fill_input('input[name="pricePerCPSpot"]','exist','35');
+     create_lane_support.fill_input('input[name="pricePerCPSpot"]',0,'exist','35');
 })
 Then('I should set the reservation fee percentage',()=>{
-     create_lane_support.fill_input('input[name="reservationFee"]','exist','10');
+     create_lane_support.fill_input('input[name="reservationFee"]',0,'exist','10');
 })
 Then('I should set the free cancelation period',()=>{
-     create_lane_support.fill_input('input[name="cancellationPeriod"]','exist','2');
+     create_lane_support.fill_input('input[name="cancellationPeriod"]',0,'exist','2');
 })
 
 //CREATING A LANE WITH ALL INFORMATION PROVIDED
