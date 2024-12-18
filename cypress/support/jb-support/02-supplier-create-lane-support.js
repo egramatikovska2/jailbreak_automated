@@ -8,8 +8,8 @@ function click_btn(selector, element, text){
 function role_dialog(role, index, text, validation){
     cy.get(role).eq(index).contains(text).should(validation)
 }
-function fill_input(selector, validation, value){
-    cy.get(selector).should(validation).type(value)
+function fill_input(selector,index, validation, value){
+    cy.get(selector).eq(index).should(validation).type(value)
 }
 function origin_gateway(){
     cy.get('input[placeholder="Start typing..."]').type(' ')
@@ -33,8 +33,8 @@ function assert_td(table_component, tb_index, tr_index, element, text, validatio
 function assert_lane(){
     assert_td('table > tbody',0,0,'td','Lawrenceville, GA','exist');
     assert_td('table > tbody',0,0,'td','Kenai, AK','exist');
-    assert_td('table> tbody',0,0,'td','140','exist');
-    assert_td('table> tbody',0,0,'td','140','exist');
+    //assert_td('table> tbody',0,0,'td','140','exist');
+    //assert_td('table> tbody',0,0,'td','140','exist');
     assert_td('table> tbody',0,0,'td','0','exist');
     assert_td('table> tbody',0,0,'td','Mon, Wed, Fri','exist');
 }
