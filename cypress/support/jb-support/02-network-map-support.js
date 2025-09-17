@@ -11,9 +11,11 @@ function validate_filters(){
     login_support.validate_input('input[placeholder="City, State or Zip..."]','exist')    
     login_support.check_text('div[data-fluid="true"]', 'div > div > label', 'Destination')
     login_support.validate_input('input[placeholder="City, State or Zip..."]','exist')    
-    login_support.check_text('div[data-fluid="true"]', 'div > div > label', 'Date Range')
+    login_support.check_text('div[data-fluid="true"]', 'div > div > label', 'Date range')
     login_support.check_text('button[type="button"]','span','Start - End Date')
 }
+
+
 
 
 module.exports = {

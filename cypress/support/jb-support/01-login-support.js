@@ -14,12 +14,10 @@ function populate_input(selector, value){
     cy.get(selector).type(value)
 }
 function validate_network_map(){
-    check_text('div[data-fluid="true"]','h1','Network Search')
-    check_text('div[data-fluid="true"]','a','Network')
-    check_text('div[data-fluid="true"]','a','Transporters')
-    check_text('div[data-fluid="true"]','a','Reservations')
-    check_text('div[data-fluid="true"]','a','Quick Allocation')
-}
+    check_text('div[data-fluid="true"] > div > div > div:nth-child(2)','a','Exchange')
+    check_text('div[data-fluid="true"] > div > div > div:nth-child(2)','a','Transporters')
+    check_text('div[data-fluid="true"]','h1[data-size="h2"]','Network Search')
+    }
 
 module.exports ={
     check_btn_text,
