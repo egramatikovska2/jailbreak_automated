@@ -2,6 +2,7 @@
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 const jb_supportFile = require('../../../support/jb-support/01-login-support');
 
+
 //SUCCESSFUL LOGIN - CORRECT EMAIL AND PASSWORD
 When('I open the Jailbreak app',()=>{
     cy.viewport(1920, 1080)
