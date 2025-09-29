@@ -15,10 +15,35 @@ function validate_filters(){
     login_support.check_text('button[type="button"]','span','Start - End Date')
 }
 
+function validate_edit_network_map(){
+    login_support.check_btn_text('button[type="button"]', 'span > span', 'Leave Edit Network', 'exist')
+    login_support.check_btn_text('button[type="button"]', 'span > span', 'Save Changes', 'exist')
+    cy.get('button[type="button"] > span > span').contains('Save Changes').parent().parent().should('be.disabled')
+    login_support.validate_input('input[placeholder="Search Location"]','exist')
+    login_support.check_btn_text('button[type="button"]','div > p', 'Select', 'exist')
+    login_support.check_btn_text('button[type="button"]','div > p', 'Add', 'exist')
+    login_support.check_btn_text('button[type="button"]','div > p', 'Connect', 'exist')
+    login_support.check_btn_text('button[type="button"]','div > p', 'Erase', 'exist')
+    login_support.check_btn_text('button[type="button"]', 'span > span:nth-child(2)', 'Create Connection', 'exist')
+    login_support.check_btn_text('button[type="button"]', 'span > span:nth-child(2)', 'Add Place', 'exist')
+    cy.get('div > h1').contains('Network Layers').should('exist')
+}
 
+function check_dialog_adding_place(){
+    cy.get('section[role="dialog"]').should('be.visible').should('exist')
+    cy.get('section[role="dialog"] > header').find('h2 > div > span').should('contain','Place Details')
+    login_support.check_btn_text('button[type="submit"]', 'span > span', 'Confirm','exist')
+    login_support.validate_input('input[name="address"]','exist')
+    login_support.validate_input('input[name="city"]','exist')
+    login_support.validate_input('input[name="state"]','exist')
+    login_support.validate_input('input[name="zip"]','exist')
+    login_support.validate_input('input[name="customName"]','exist')
+}
 
 
 module.exports = {
     login,
-    validate_filters
+    validate_filters,
+    validate_edit_network_map,
+    check_dialog_adding_place
 }
