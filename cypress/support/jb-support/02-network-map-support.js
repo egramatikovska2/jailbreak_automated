@@ -40,10 +40,31 @@ function check_dialog_adding_place(){
     login_support.validate_input('input[name="customName"]','exist')
 }
 
+function check_dialog_invalid_address(){
+    cy.get('.mapboxgl-popup-content').should('exist').should('be.visible')
+    login_support.check_text('.mapboxgl-popup-content > div > div','h4','Place near Moore')
+    login_support.check_text('.mapboxgl-popup-content > div > div','p','(43.476195, -113.625267)')
+    login_support.validate_input('input[name="address"]','exist')
+    login_support.validate_input('input[name="city"]','exist')
+    login_support.validate_input('input[name="state"]','exist')
+    login_support.validate_input('input[name="zip"]','exist')
+    login_support.check_btn_text('button[type="submit"]','span > span','Confirm','exist')
+}
+
+function enter_details_invalid_address(){
+    login_support.populate_input('input[name="address"]','3220 Clay Ln')
+    cy.get('input[name="city"]').clear()
+    cy.get('input[name="state"]').clear()
+    login_support.populate_input('input[name="city"]','New Meadows')
+    login_support.populate_input('input[name="state"]','Idaho')
+    login_support.populate_input('input[name="zip"]','83654')
+}
 
 module.exports = {
     login,
     validate_filters,
     validate_edit_network_map,
-    check_dialog_adding_place
+    check_dialog_adding_place,
+    check_dialog_invalid_address,
+    enter_details_invalid_address
 }
