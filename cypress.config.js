@@ -1,16 +1,26 @@
 // load dotenv - if not CI, so in CI we will use the env vars specified in the
 // action itself
+if (process.env.CI !== "true") require("dotenv").config();
 
-if (process.env.CI !== 'true')
-  require('dotenv').config();
+const { defineConfig } = require("cypress");
+const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
+const addCucumberPreprocessorPlugin =
+  require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
+const createEsbuildPlugin =
+  require("@badeball/cypress-cucumber-preprocessor/esbuild").createEsbuildPlugin;
 
-const { defineConfig } = require("Cypress");
-const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
-const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify");
+async function setupNodeEvents(on, config) {
+  // Register Cucumber plugin
+  await addCucumberPreprocessorPlugin(on, config);
 
-async function setupNodeEvents(on, config){
-  await preprocessor.addCucumberPreprocessorPlugin(on, config);
-  on("file:preprocessor", browserify.default(config))
+  // Use esbuild as bundler
+  on(
+    "file:preprocessor",
+    createBundler({
+      plugins: [createEsbuildPlugin(config)],
+    })
+  );
+
   return config;
 }
 
@@ -18,8 +28,8 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents,
     specPattern: "cypress/e2e/jailbreak_automated/features/*.feature",
-    watchForFileChanges:false,
-    chromeWebSecurity:false,
+    watchForFileChanges: false,
+    chromeWebSecurity: false,
     experimentalModifyObstructiveThirdPartyCode: true,
     defaultCommandTimeout: 10000,
     requestTimeout: 10000,
@@ -35,8 +45,8 @@ module.exports = defineConfig({
     JAILBREAK_WEBHOST: process.env.CYPRESS_JAILBREAK_WEBHOST,
     JAILBREAK_APIHOST: process.env.CYPRESS_JAILBREAK_APIHOST,
     JAILBREAK_API_USERNAME: process.env.CYPRESS_JAILBREAK_API_USERNAME,
-    JAILBREAK_API_PASS: process.env.CYPRESS_JAILBREAK_API_PASS
-  }
+    JAILBREAK_API_PASS: process.env.CYPRESS_JAILBREAK_API_PASS,
+  },
 });
 
 
