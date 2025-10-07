@@ -1,4 +1,4 @@
-/// <reference types="Cypress"/>
+/// <reference types="cypress"/>
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 const jb_support = require('../../../support/jb-support/01-login-support');
 const edit_support = require('../../../support/jb-support/02-network-map-support');
@@ -19,7 +19,7 @@ When('I click on the ADD PLACE button',()=>{
 })
 
 Then('the side dialog for the adding a place should be displayed',()=>{
-    edit_support.check_dialog_adding_place()    
+    edit_support.check_dialog_adding_place('Place near McCall','(44.809921, -115.840943)')    
 })
 
 When('I add the information for the place',()=>{
@@ -43,7 +43,7 @@ Then('a pop up with the created place should appear on the map',()=>{
 })
 
 Then('the new place should be displayed in Network Layers',()=>{
-    cy.get('[id*="tempPlace"] > div').find('p').contains('Tennessee - Automation').should('exist').should('have.length.at.least', 1)
+    edit_support.network_layers_text('[id*="tempPlace"]','Tennessee - Automation', 'have.length.at.least', 1)
 })
 
 Then('I should save the changes',()=>{
@@ -69,11 +69,7 @@ When('I select the suggested address',()=>{
 })
 
 Then('a pop up with the place should appear on the map',()=>{
-    cy.wait(2000)
-    cy.get('.mapboxgl-popup-content').should('exist').should('be.visible')
-    jb_support.check_text('.mapboxgl-popup-content > div > div', 'h4', '9 Geiger Road')
-    jb_support.check_text('.mapboxgl-popup-content > div > div', 'p', 'Key West, Florida')
-    jb_support.check_btn_text('.mapboxgl-popup-content > div > div > button', 'span > span:nth-child(2)','Save Place', 'exist')
+    edit_support.check_popup('9 Geiger Road', 'Key West, Florida', 'Save Place');
 })
 
 When('I click on SAVE PLACE button',()=>{
@@ -81,14 +77,13 @@ When('I click on SAVE PLACE button',()=>{
 })
 
 Then('the place should be displayed in Network Layers',()=>{
-    cy.get('[id*="tempPlace"] > div').find('p').contains('9 Geiger Road').should('exist').should('have.length.at.least', 1)
+    edit_support.network_layers_text('[id*="tempPlace"]','9 Geiger Road', 'have.length.at.least', 1)
 })
 
-//CREATING A PLACE BY CLICKING ON THE MAP - VALID PLACE
+//CREATING A PLACE BY CLICKING ON THE MAP - INVALID PLACE
 
 Then('I should select the tool for adding a place',()=>{
     jb_support.click_btn('button[type="button"] > div', 'p', 'Add')
-    cy.get('.mapboxgl-map').trigger('wheel', { deltaY: -200 })
 })
 
 When('I click on the map',()=>{
@@ -98,26 +93,79 @@ When('I click on the map',()=>{
 })
 
 Then('a pop up for entering the details for the place should be displayed',()=>{
-    edit_support.check_dialog_invalid_address();
+    edit_support.check_dialog_invalid_address('Place near McCall', '(44.809921, -115.840943)');
 })
 
 When('I enter the details for the place',()=>{
-    edit_support.enter_details_invalid_address();
+    edit_support.enter_details_invalid_address('508 Timm St', 'McCall', 'Idaho', '83638');
 })
 
 Then('the place should be displayed in Network Layers section',()=>{
-    cy.get('[id*="tempPlace"] > div').find('p').contains('3220 Clay Lane').should('exist').should('have.length.at.least', 1)
+    edit_support.network_layers_text('[id*="tempPlace"]','508 Timm St', 'have.length.at.least', 1)
 })
 
 //CREATING A PLACE BY CLICKING ON THE MAP - VALID PLACE --- WIP
 
 When('I click on the map for adding a place',()=>{
     cy.wait(2000)
-    cy.get('.mapboxgl-map').trigger('wheel', { deltaY: -8000 })
-    cy.get('.mapboxgl-map').click(700, 700)
+    edit_support.map_zoom('.mapboxgl-map', -3000, -3000, -3000);
     cy.wait(2000)
+    edit_support.map_click('.mapboxgl-map', 750, 750)
+})
+
+Then('a pop up with the selected place should appear on the map',()=>{
+    edit_support.check_popup('1002 Cirulio Road', 'Serafina, New Mexico', 'Edit Place')
+})
+
+Then('the newly created place should be displayed in Network Layers',()=>{
+    edit_support.network_layers_text('[id="SER-YZR"]','1002 Cirulio Road', 'have.length.at.least', 1)
 })
 
 
 
+/*
+Scenario: Creating a place by add place button
+    When I open the Jailbreak app
+    When I should be redirected on the login page for Jailbreak
+    Then I should log in with User B
+    Then I should be redirected on the map with available transportation lanes
+    Then I should click on EDIT NETWORK button
+    Then I should be redirected on the edit network mode
+    When I click on the ADD PLACE button
+    Then the side dialog for the adding a place should be displayed
+    When I add the information for the place
+    Then I should click on CONFIRM button
+    Then a pop up with the created place should appear on the map
+    Then the new place should be displayed in Network Layers
+    Then I should save the changes
 
+Scenario: Creating a place by searching an address
+    When I open the Jailbreak app
+    When I should be redirected on the login page for Jailbreak
+    Then I should log in with User B
+    Then I should be redirected on the map with available transportation lanes
+    Then I should click on EDIT NETWORK button
+    Then I should be redirected on the edit network mode
+    When I search an address
+    Then a suggestion for the searched address should appear
+    When I select the suggested address
+    Then a pop up with the place should appear on the map
+    When I click on SAVE PLACE button
+    Then the place should be displayed in Network Layers
+    Then I should save the changes
+
+Scenario: Creating a place by clicking on the map - invalid place
+    When I open the Jailbreak app
+    When I should be redirected on the login page for Jailbreak
+    Then I should log in with User B
+    Then I should be redirected on the map with available transportation lanes
+    Then I should click on EDIT NETWORK button
+    Then I should be redirected on the edit network mode
+    Then I should select the tool for adding a place
+    When I click on the map
+    Then a pop up for entering the details for the place should be displayed
+    When I enter the details for the place
+    Then I should click on CONFIRM button
+    Then the place should be displayed in Network Layers section
+    
+*/
