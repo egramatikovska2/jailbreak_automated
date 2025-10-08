@@ -9,4 +9,11 @@ Scenario: Creating a direct lane by create connection button --- WIP
     Then I should be redirected on the edit network mode
     When I click on the CREATE CONNECTION button
     Then the side dialog for creating a connection should be displayed
+    Then I should choose the origin place
+    Then I should choose the destination place
+    When I click on the CREATE CONNECTION button on the dialog
+    Then the side dialog for entering lane details should be opened
+    Then I should enter the lane details
+  
+    
   

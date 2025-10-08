@@ -98,8 +98,70 @@ function check_dialog_creating_connection(){
     cy.get('[role="dialog"]').find('input[placeholder="Choose place"]').should('exist').should('have.length', 1)
     cy.get('[role="dialog"]').find('input[placeholder="Choose a Place"]').should('exist').should('have.length', 1)
     login_support.check_btn_text('[role="dialog"]','button[type="button"] > span > span','Create Connection', 'exist')
+}
+
+function choose_origin(){
+    cy.get('input[placeholder="Choose place"]').click()
+    cy.get('[role="listbox"] > div > div > div > div > div[style="min-width: 100%; display: table;"]').eq(2).find('[role="option"]').then($places =>{
+        const count = $places.length;
+        const randomIndex = Math.floor(Math.random() * count);
+        cy.wrap($places).eq(randomIndex).click();
+    })  
+}
+
+function choose_destination(){
+    cy.get('input[placeholder="Choose a Place"]').click()
+    cy.get('[role="listbox"] > div > div > div > div > div[style="min-width: 100%; display: table;"]').last().find('[role="option"]').then($places =>{
+        const count = $places.length;
+        const randomIndex = Math.floor(Math.random() * count);
+        cy.wrap($places).eq(randomIndex).click();
+    })
+}
+
+function check_dialog_creating_lane(){
+    login_support.check_text('[role="dialog"]', 'header > h2 > p', 'Lane Details')
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').first().find('div > h5').should('contain', 'Gateways').should('have.length', 1)
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').eq(1).find('div > h5').should('contain', 'Lane Details').should('have.length', 1)
+    cy.get('p').contains('Transit Timetable').should('exist').should('have.length', 1)
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').last().find('button[type="button"] > span > span').should('contain', 'Cancel').should('have.length', 1)
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').last().find('button[type="submit"] > span > span').should('contain', 'Submit').should('have.length', 1)
+}
+
+function set_date_range(){
+    cy.get('button[data-dates-input="true"]').parent().parent().find('label').contains('Date range').should('exist').should('have.length', 1)
+    login_support.click_btn('button[data-dates-input="true"]', 'span', 'Select dates')
 
 }
+
+function set_dispatch_days(){
+
+}
+
+function set_start_time(){
+
+}
+
+function set_transit_time(){
+
+}
+
+function set_drop_off_start(){
+
+}
+
+function set_drop_off_end(){
+
+}
+
+function set_pick_up_start(){
+
+}
+
+function set_pick_up_end(){
+
+}
+
+
 
 module.exports = {
     login,
@@ -112,5 +174,16 @@ module.exports = {
     map_zoom,
     map_click,
     network_layers_text,
-    check_dialog_creating_connection
+    check_dialog_creating_connection,
+    choose_origin,
+    choose_destination,
+    check_dialog_creating_lane,
+    set_date_range,
+    set_dispatch_days,
+    set_start_time,
+    set_transit_time,
+    set_drop_off_start,
+    set_drop_off_end,
+    set_pick_up_start,
+    set_pick_up_end
 }
