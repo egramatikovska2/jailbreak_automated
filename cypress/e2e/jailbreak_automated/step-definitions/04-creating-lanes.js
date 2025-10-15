@@ -30,5 +30,14 @@ Then('the side dialog for entering lane details should be opened',()=>{
 })
 
 Then('I should enter the lane details',()=>{
-    edit_support.set_date_range();
+    edit_support.set_lane_details();
 })
+
+When('I click on SUBMIT button on the side dialog',()=>{
+    jb_support.click_btn('button[type="submit"]', 'span > span', 'Submit')
+})
+
+Then('the temporary lane should be displayed in the network layers',()=>{
+    edit_support.network_layers_text('[id*="tempLane"]','tempLane', 'have.length', 1)
+})
+

@@ -1,6 +1,6 @@
-Feature: Creating lanes
+Feature: Creating lanes ---- WIP
 
-Scenario: Creating a direct lane by create connection button --- WIP
+Scenario: Creating a direct lane by create connection button
     When I open the Jailbreak app
     When I should be redirected on the login page for Jailbreak
     Then I should log in with User B
@@ -14,6 +14,9 @@ Scenario: Creating a direct lane by create connection button --- WIP
     When I click on the CREATE CONNECTION button on the dialog
     Then the side dialog for entering lane details should be opened
     Then I should enter the lane details
+    When I click on SUBMIT button on the side dialog
+    Then the temporary lane should be displayed in the network layers
+    Then I should save the changes
   
     
   

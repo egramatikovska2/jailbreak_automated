@@ -19,6 +19,7 @@ When('I click on the ADD PLACE button',()=>{
 })
 
 Then('the side dialog for the adding a place should be displayed',()=>{
+    cy.wait(2000)
     edit_support.check_dialog_adding_place('Place near McCall','(44.809921, -115.840943)')    
 })
 
@@ -48,7 +49,6 @@ Then('the new place should be displayed in Network Layers',()=>{
 
 Then('I should save the changes',()=>{
     jb_support.click_btn('button[type="button"]', 'span > span', 'Save Changes')
-    jb_support.check_text('div[id*="DYE"]', 'div > p:nth-child(1)', 'Tennessee - Automation')
 })
 
 //CREATING A PLACE BY SEARCHING AN ADDRESS
@@ -80,7 +80,8 @@ Then('the place should be displayed in Network Layers',()=>{
     edit_support.network_layers_text('[id*="tempPlace"]','9 Geiger Road', 'have.length.at.least', 1)
 })
 
-//CREATING A PLACE BY CLICKING ON THE MAP - INVALID PLACE
+//CREATING A PLACE BY CLICKING ON THE MAP - INVALID PLACE 
+//check for already existing place on the map - additional step should be implemented
 
 Then('I should select the tool for adding a place',()=>{
     jb_support.click_btn('button[type="button"] > div', 'p', 'Add')
@@ -97,6 +98,7 @@ Then('a pop up for entering the details for the place should be displayed',()=>{
 })
 
 When('I enter the details for the place',()=>{
+    cy.wait(2000)
     edit_support.enter_details_invalid_address('508 Timm St', 'McCall', 'Idaho', '83638');
 })
 

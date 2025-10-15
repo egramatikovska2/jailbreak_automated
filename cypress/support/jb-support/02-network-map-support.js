@@ -125,40 +125,44 @@ function check_dialog_creating_lane(){
     cy.get('p').contains('Transit Timetable').should('exist').should('have.length', 1)
     cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').last().find('button[type="button"] > span > span').should('contain', 'Cancel').should('have.length', 1)
     cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').last().find('button[type="submit"] > span > span').should('contain', 'Submit').should('have.length', 1)
+    cy.get('p').contains('The Transit Timetable will be displayed after all required details are entered').should('exist')
 }
 
 function set_date_range(){
-    cy.get('button[data-dates-input="true"]').parent().parent().find('label').contains('Date range').should('exist').should('have.length', 1)
     login_support.click_btn('button[data-dates-input="true"]', 'span', 'Select dates')
-
+    //start date - today
+    cy.get('button[data-today="true"]').click()
+    //end date - next month, 3rd week, 4th day
+    cy.get('button[data-direction="next"]').click()
+    cy.get('.mantine-DatePickerInput-monthRow').eq(2).find('td').eq(3).click()
 }
 
-function set_dispatch_days(){
-
+function set_dispatch_days(day){
+    login_support.click_btn('label', 'span', day)
 }
 
-function set_start_time(){
-
+function set_times(selector, time){
+    login_support.populate_input(selector, time)
 }
 
-function set_transit_time(){
-
-}
-
-function set_drop_off_start(){
-
-}
-
-function set_drop_off_end(){
-
-}
-
-function set_pick_up_start(){
-
-}
-
-function set_pick_up_end(){
-
+function set_lane_details(){
+    cy.get('button[data-dates-input="true"]').parent().parent().find('label').contains('Date range').should('exist').should('have.length', 1)
+    set_date_range();
+    set_dispatch_days('Su');
+    set_dispatch_days('Mo');
+    set_dispatch_days('Tu');
+    set_dispatch_days('We');
+    set_dispatch_days('Th');
+    set_dispatch_days('Fr');
+    set_dispatch_days('Sa');
+    cy.get('label').contains('Trip Start Time').should('exist').should('have.length', 1)
+    set_times('input[name="tripStartTime"]','09:00');
+    set_times('input[name="duration"]', '5');
+    set_times('input[name="dropOffStartTime"]','08:20')
+    set_times('input[name="dropOffEndTime"]','08:50')
+    set_times('input[name="pickUpStartTime"]','20:20')
+    set_times('input[name="pickUpEndTime"]','20:50') 
+    cy.get('h5').contains('Lane Summary').should('exist').should('have.length', 1)
 }
 
 
@@ -180,10 +184,6 @@ module.exports = {
     check_dialog_creating_lane,
     set_date_range,
     set_dispatch_days,
-    set_start_time,
-    set_transit_time,
-    set_drop_off_start,
-    set_drop_off_end,
-    set_pick_up_start,
-    set_pick_up_end
+    set_times,
+    set_lane_details    
 }
