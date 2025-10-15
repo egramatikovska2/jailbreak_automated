@@ -98,8 +98,74 @@ function check_dialog_creating_connection(){
     cy.get('[role="dialog"]').find('input[placeholder="Choose place"]').should('exist').should('have.length', 1)
     cy.get('[role="dialog"]').find('input[placeholder="Choose a Place"]').should('exist').should('have.length', 1)
     login_support.check_btn_text('[role="dialog"]','button[type="button"] > span > span','Create Connection', 'exist')
-
 }
+
+function choose_origin(){
+    cy.get('input[placeholder="Choose place"]').click()
+    cy.get('[role="listbox"] > div > div > div > div > div[style="min-width: 100%; display: table;"]').eq(2).find('[role="option"]').then($places =>{
+        const count = $places.length;
+        const randomIndex = Math.floor(Math.random() * count);
+        cy.wrap($places).eq(randomIndex).click();
+    })  
+}
+
+function choose_destination(){
+    cy.get('input[placeholder="Choose a Place"]').click()
+    cy.get('[role="listbox"] > div > div > div > div > div[style="min-width: 100%; display: table;"]').last().find('[role="option"]').then($places =>{
+        const count = $places.length;
+        const randomIndex = Math.floor(Math.random() * count);
+        cy.wrap($places).eq(randomIndex).click();
+    })
+}
+
+function check_dialog_creating_lane(){
+    login_support.check_text('[role="dialog"]', 'header > h2 > p', 'Lane Details')
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').first().find('div > h5').should('contain', 'Gateways').should('have.length', 1)
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').eq(1).find('div > h5').should('contain', 'Lane Details').should('have.length', 1)
+    cy.get('p').contains('Transit Timetable').should('exist').should('have.length', 1)
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').last().find('button[type="button"] > span > span').should('contain', 'Cancel').should('have.length', 1)
+    cy.get('[role="dialog"] > div:nth-child(2) > div > form > div').last().find('button[type="submit"] > span > span').should('contain', 'Submit').should('have.length', 1)
+    cy.get('p').contains('The Transit Timetable will be displayed after all required details are entered').should('exist')
+}
+
+function set_date_range(){
+    login_support.click_btn('button[data-dates-input="true"]', 'span', 'Select dates')
+    //start date - today
+    cy.get('button[data-today="true"]').click()
+    //end date - next month, 3rd week, 4th day
+    cy.get('button[data-direction="next"]').click()
+    cy.get('.mantine-DatePickerInput-monthRow').eq(2).find('td').eq(3).click()
+}
+
+function set_dispatch_days(day){
+    login_support.click_btn('label', 'span', day)
+}
+
+function set_times(selector, time){
+    login_support.populate_input(selector, time)
+}
+
+function set_lane_details(){
+    cy.get('button[data-dates-input="true"]').parent().parent().find('label').contains('Date range').should('exist').should('have.length', 1)
+    set_date_range();
+    set_dispatch_days('Su');
+    set_dispatch_days('Mo');
+    set_dispatch_days('Tu');
+    set_dispatch_days('We');
+    set_dispatch_days('Th');
+    set_dispatch_days('Fr');
+    set_dispatch_days('Sa');
+    cy.get('label').contains('Trip Start Time').should('exist').should('have.length', 1)
+    set_times('input[name="tripStartTime"]','09:00');
+    set_times('input[name="duration"]', '5');
+    set_times('input[name="dropOffStartTime"]','08:20')
+    set_times('input[name="dropOffEndTime"]','08:50')
+    set_times('input[name="pickUpStartTime"]','20:20')
+    set_times('input[name="pickUpEndTime"]','20:50') 
+    cy.get('h5').contains('Lane Summary').should('exist').should('have.length', 1)
+}
+
+
 
 module.exports = {
     login,
@@ -112,5 +178,12 @@ module.exports = {
     map_zoom,
     map_click,
     network_layers_text,
-    check_dialog_creating_connection
+    check_dialog_creating_connection,
+    choose_origin,
+    choose_destination,
+    check_dialog_creating_lane,
+    set_date_range,
+    set_dispatch_days,
+    set_times,
+    set_lane_details    
 }

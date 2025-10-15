@@ -43,6 +43,7 @@ Scenario: Creating a place by clicking on the map - invalid place
     When I enter the details for the place
     Then I should click on CONFIRM button
     Then the place should be displayed in Network Layers section
+    Then I should save the changes
 
 Scenario: Creating a place by clicking on the map - valid place
     When I open the Jailbreak app
