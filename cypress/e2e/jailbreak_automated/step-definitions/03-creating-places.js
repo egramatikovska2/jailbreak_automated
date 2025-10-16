@@ -81,7 +81,6 @@ Then('the place should be displayed in Network Layers',()=>{
 })
 
 //CREATING A PLACE BY CLICKING ON THE MAP - INVALID PLACE 
-//check for already existing place on the map - additional step should be implemented
 
 Then('I should select the tool for adding a place',()=>{
     jb_support.click_btn('button[type="button"] > div', 'p', 'Add')
@@ -89,85 +88,38 @@ Then('I should select the tool for adding a place',()=>{
 
 When('I click on the map',()=>{
     cy.wait(2000)
-    cy.get('.mapboxgl-map').click(600, 200)
+    cy.get('.mapboxgl-map').click(800, 200)
     cy.wait(2000)
 })
 
 Then('a pop up for entering the details for the place should be displayed',()=>{
-    edit_support.check_dialog_invalid_address('Place near McCall', '(44.809921, -115.840943)');
+    edit_support.check_dialog_invalid_address('Place near Kamas');
 })
 
 When('I enter the details for the place',()=>{
     cy.wait(2000)
-    edit_support.enter_details_invalid_address('508 Timm St', 'McCall', 'Idaho', '83638');
+    edit_support.enter_details_invalid_address('2326 Country Rd', 'Kamas', 'Utah', '84036');
 })
 
 Then('the place should be displayed in Network Layers section',()=>{
-    edit_support.network_layers_text('[id*="tempPlace"]','508 Timm St', 'have.length.at.least', 1)
+    edit_support.network_layers_text('[id*="tempPlace"]','2326 Country Road', 'have.length.at.least', 1)
 })
 
-//CREATING A PLACE BY CLICKING ON THE MAP - VALID PLACE --- WIP
+//CREATING A PLACE BY CLICKING ON THE MAP - VALID PLACE
 
 When('I click on the map for adding a place',()=>{
     cy.wait(2000)
     edit_support.map_zoom('.mapboxgl-map', -3000, -3000, -3000);
     cy.wait(2000)
-    edit_support.map_click('.mapboxgl-map', 750, 750)
+    cy.get('.mapboxgl-map').click(820, 600)
+    cy.wait(2000)
 })
 
 Then('a pop up with the selected place should appear on the map',()=>{
-    edit_support.check_popup('1002 Cirulio Road', 'Serafina, New Mexico', 'Edit Place')
+    edit_support.check_popup('6 Elk Ridge Road', 'Williamsburg, New Mexico', 'Edit Place')
 })
 
 Then('the newly created place should be displayed in Network Layers',()=>{
-    edit_support.network_layers_text('[id="SER-YZR"]','1002 Cirulio Road', 'have.length.at.least', 1)
+    edit_support.network_layers_text('[id*="WILL"]','6 Elk Ridge Road', 'have.length.at.least', 1)
 })
 
-
-
-/*
-Scenario: Creating a place by add place button
-    When I open the Jailbreak app
-    When I should be redirected on the login page for Jailbreak
-    Then I should log in with User B
-    Then I should be redirected on the map with available transportation lanes
-    Then I should click on EDIT NETWORK button
-    Then I should be redirected on the edit network mode
-    When I click on the ADD PLACE button
-    Then the side dialog for the adding a place should be displayed
-    When I add the information for the place
-    Then I should click on CONFIRM button
-    Then a pop up with the created place should appear on the map
-    Then the new place should be displayed in Network Layers
-    Then I should save the changes
-
-Scenario: Creating a place by searching an address
-    When I open the Jailbreak app
-    When I should be redirected on the login page for Jailbreak
-    Then I should log in with User B
-    Then I should be redirected on the map with available transportation lanes
-    Then I should click on EDIT NETWORK button
-    Then I should be redirected on the edit network mode
-    When I search an address
-    Then a suggestion for the searched address should appear
-    When I select the suggested address
-    Then a pop up with the place should appear on the map
-    When I click on SAVE PLACE button
-    Then the place should be displayed in Network Layers
-    Then I should save the changes
-
-Scenario: Creating a place by clicking on the map - invalid place
-    When I open the Jailbreak app
-    When I should be redirected on the login page for Jailbreak
-    Then I should log in with User B
-    Then I should be redirected on the map with available transportation lanes
-    Then I should click on EDIT NETWORK button
-    Then I should be redirected on the edit network mode
-    Then I should select the tool for adding a place
-    When I click on the map
-    Then a pop up for entering the details for the place should be displayed
-    When I enter the details for the place
-    Then I should click on CONFIRM button
-    Then the place should be displayed in Network Layers section
-    
-*/
