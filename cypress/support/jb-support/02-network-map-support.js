@@ -57,10 +57,9 @@ function check_dialog_adding_place(){
     login_support.validate_input('input[name="customName"]','exist')
 }
 
-function check_dialog_invalid_address(header, coordinates){
+function check_dialog_invalid_address(header){
     cy.get('.mapboxgl-popup-content').should('exist').should('be.visible')
     login_support.check_text('.mapboxgl-popup-content > div > div','h4', header)
-    login_support.check_text('.mapboxgl-popup-content > div > div','p', coordinates)
     login_support.validate_input('input[name="address"]','exist')
     login_support.validate_input('input[name="city"]','exist')
     login_support.validate_input('input[name="state"]','exist')

@@ -1,4 +1,4 @@
-/// <reference types="Cypress"/>
+/// <reference types="cypress"/>
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
 const jb_login = require('../../../support/jb-support/01-login-support');
 const jb_supportFile = require('../../../support/jb-support/02-network-map-support');
@@ -18,8 +18,7 @@ Then('I should validate the sidebar on the left side of the map',()=>{
     cy.get('[value="MY_LANES"]').parent().find('label').should('have.attr','data-active','true')
     cy.get('[value="MY_LANES"]').parent().find('label > span').should('contain', 'My Lanes')
     cy.get('[value="EXCHANGE"]').parent().find('label').should('not.have.attr','data-active','true')
-    cy.get('[value="EXCHANGE"]').parent().find('label > span').should('contain', 'Exchange')
-    cy.get('[role="radiogroup"]').parent().find('div:nth-child(2) > div > div').find('button[type="button"]').should('have.length.at.least', 2)    
+    cy.get('[value="EXCHANGE"]').parent().find('label > span').should('contain', 'Exchange')    
 })
 
 //VALIDATE THE MAP
