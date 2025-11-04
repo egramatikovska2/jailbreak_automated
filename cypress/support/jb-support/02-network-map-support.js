@@ -147,10 +147,7 @@ function set_times(selector, time){
 function set_lane_details(){
     cy.get('button[data-dates-input="true"]').parent().parent().find('label').contains('Date range').should('exist').should('have.length', 1)
     set_date_range();
-    set_dispatch_days('Su');
     set_dispatch_days('Mo');
-    set_dispatch_days('Tu');
-    set_dispatch_days('We');
     set_dispatch_days('Th');
     set_dispatch_days('Fr');
     set_dispatch_days('Sa');
