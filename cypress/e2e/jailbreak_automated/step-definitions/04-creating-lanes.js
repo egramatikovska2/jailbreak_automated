@@ -1,6 +1,5 @@
 /// <reference types="cypress"/>
 import {Given, When, Then} from '@badeball/cypress-cucumber-preprocessor';
-import { exitCode } from 'process';
 const jb_support = require('../../../support/jb-support/01-login-support');
 const edit_support = require('../../../support/jb-support/02-network-map-support');
 

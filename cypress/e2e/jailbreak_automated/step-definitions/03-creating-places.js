@@ -24,10 +24,10 @@ Then('the side dialog for the adding a place should be displayed',()=>{
 })
 
 When('I add the information for the place',()=>{
-    jb_support.populate_input('input[name="address"]','421 High Ave')
-    jb_support.populate_input('input[name="city"]','Dyersburg')
+    jb_support.populate_input('input[name="address"]','134 Colonial Hts')
+    jb_support.populate_input('input[name="city"]','La Follette')
     jb_support.populate_input('input[name="state"]','Tennessee')
-    jb_support.populate_input('input[name="zip"]','38024')
+    jb_support.populate_input('input[name="zip"]','37766')
     jb_support.populate_input('input[name="customName"]','Tennessee - Automation')
     cy.wait(2000)
 })
@@ -39,7 +39,7 @@ Then('I should click on CONFIRM button',()=>{
 Then('a pop up with the created place should appear on the map',()=>{
     cy.get('.mapboxgl-popup-content').should('exist').should('be.visible')
     jb_support.check_text('.mapboxgl-popup-content > div > div', 'h4', 'Tennessee - Automation')
-    jb_support.check_text('.mapboxgl-popup-content > div > div', 'p', '421 High Avenue , Dyersburg, Tennessee')
+    jb_support.check_text('.mapboxgl-popup-content > div > div', 'p','134 Colonial Heights Road , La Follette, Tennessee')
     jb_support.check_btn_text('.mapboxgl-popup-content > div > div > button', 'span > span:nth-child(2)','Edit Place', 'exist')
 })
 
@@ -123,3 +123,16 @@ Then('the newly created place should be displayed in Network Layers',()=>{
     edit_support.network_layers_text('[id*="WILL"]','6 Elk Ridge Road', 'have.length.at.least', 1)
 })
 
+/*
+    When I open the Jailbreak app
+    When I should be redirected on the login page for Jailbreak
+    Then I should log in with User B
+    Then I should be redirected on the map with available transportation lanes
+    Then I should click on EDIT NETWORK button
+    Then I should be redirected on the edit network mode
+    Then I should select the tool for adding a place
+    When I click on the map for adding a place
+    Then a pop up with the selected place should appear on the map
+    Then the newly created place should be displayed in Network Layers
+    Then I should save the changes
+    */

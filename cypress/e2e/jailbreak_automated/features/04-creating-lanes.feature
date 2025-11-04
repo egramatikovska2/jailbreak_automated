@@ -1,4 +1,4 @@
-Feature: Creating lanes ---- WIP
+Feature: Creating lanes
 
 Scenario: Creating a direct lane by create connection button
     When I open the Jailbreak app
