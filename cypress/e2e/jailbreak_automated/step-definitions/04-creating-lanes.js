@@ -29,7 +29,7 @@ Then('the side dialog for entering lane details should be opened',()=>{
 })
 
 Then('I should enter the lane details',()=>{
-    edit_support.set_lane_details();
+    edit_support.set_lane_details('09:00', '5', '08:20', '08:50', '20:20', '20:50');
 })
 
 When('I click on SUBMIT button on the side dialog',()=>{

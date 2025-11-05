@@ -144,23 +144,52 @@ function set_times(selector, time){
     login_support.populate_input(selector, time)
 }
 
-function set_lane_details(){
+function set_lane_details(startTime, duration, dropOffStart, dropOffEnd, pickUpStart, pickUpEnd){
     cy.get('button[data-dates-input="true"]').parent().parent().find('label').contains('Date range').should('exist').should('have.length', 1)
     set_date_range();
     set_dispatch_days('Mo');
+    set_dispatch_days('Tu');
+    set_dispatch_days('We');
     set_dispatch_days('Th');
     set_dispatch_days('Fr');
     set_dispatch_days('Sa');
     cy.get('label').contains('Trip Start Time').should('exist').should('have.length', 1)
-    set_times('input[name="tripStartTime"]','09:00');
-    set_times('input[name="duration"]', '5');
-    set_times('input[name="dropOffStartTime"]','08:20')
-    set_times('input[name="dropOffEndTime"]','08:50')
-    set_times('input[name="pickUpStartTime"]','20:20')
-    set_times('input[name="pickUpEndTime"]','20:50') 
+    set_times('input[name="tripStartTime"]', startTime);
+    set_times('input[name="duration"]', duration);
+    set_times('input[name="dropOffStartTime"]', dropOffStart)
+    set_times('input[name="dropOffEndTime"]', dropOffEnd)
+    set_times('input[name="pickUpStartTime"]', pickUpStart)
+    set_times('input[name="pickUpEndTime"]',pickUpEnd) 
     cy.get('h5').contains('Lane Summary').should('exist').should('have.length', 1)
 }
 
+function validate_lane_detail_card(){
+    login_support.check_text('div', 'p', 'Lane')
+    login_support.check_btn_text('button[type="button"]', 'span > span', 'Edit Lane', 'exist')
+    login_support.check_text('div', 'p', 'Allocations for')
+    login_support.check_text('div', 'p', 'Prior')
+    login_support.check_text('div > div:nth-child(2)', 'p', 'New')
+    login_support.check_text('div > div:nth-child(3)', 'p', 'Total')
+    login_support.check_btn_text('button[type="button"]', 'span > span', 'Publish Capacity for Sale', 'exist')
+    login_support.check_text('div', 'p', 'Timetable')
+}
+
+function trip_details(){
+    login_support.check_text('div', 'p', 'Trip Details')
+    login_support.check_text('div > div', 'p', 'Status')
+    login_support.check_text('div > div', 'p', 'Dispatch Days')
+    login_support.check_text('div > div', 'p', 'Entry time')
+    login_support.check_text('div > div', 'p', 'Pull time')
+    login_support.check_text('div > div', 'p', 'Start Date')
+    login_support.check_text('div > div', 'p', 'Finish Date')
+    login_support.check_text('div > div', 'p', 'Total Capacity')
+    login_support.check_text('div > div', 'p', 'Trips')
+}
+
+
+function validate_lane_details_page(){
+    trip_details(); 
+}
 
 
 module.exports = {
@@ -181,5 +210,8 @@ module.exports = {
     set_date_range,
     set_dispatch_days,
     set_times,
-    set_lane_details    
+    set_lane_details,
+    validate_lane_detail_card,
+    trip_details,
+    validate_lane_details_page
 }
